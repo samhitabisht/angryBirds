@@ -1,24 +1,47 @@
-class Slingshot {
-	constructor(object1, object2) {
-	var options = {
-	bodyA: object1,
-	pointB: object2,
-	stiffness: 0.01,
-	length: 100
+class SlingShot{
+    constructor(bodyA, pointB){
+        var options = {
+            bodyA: bodyA,
+            pointB: pointB,
+            stiffness: 0.04,
+            length: 10
+        }
+        this.pointB = pointB
+        this.sling = Constraint.create(options);
+        this.sling1=loadImage("sprites/sling1.png")
+        this.sling2=loadImage("sprites/sling2.png")
+        this.sling3=loadImage("sprites/sling3.png")
+        World.add(world, this.sling);
+    }
 
-	}
-	this.sling= Matter.Constraint.create(options)
-	World.add(world,this.sling);
-		}
+    fly(){
+        this.sling.bodyA = null;
+    }
 
-	display () {
-		strokeWeight(3);
-		stroke("white");
-		if (this.sling.bodyA) {
-			line (this.sling.bodyA.position.x,this.sling.bodyA.position.y,this.sling.pointB.x,this.sling.pointB.y);
-		}
-	}
-	fly () {
-		this.sling.bodyA=null;
-	}
+    display(){
+        image(this.sling1, 200, 30)
+        image(this.sling2, 175, 30)
+        if(this.sling.bodyA){
+            var pointA = this.sling.bodyA.position;
+            var pointB = this.pointB;
+            push();
+            stroke(48,22,7);
+            if (pointA.x<220){
+                strokeWeight(7);
+            line(pointA.x-20, pointA.y, pointB.x-10, pointB.y);
+            line(pointA.x-20, pointA.y, pointB.x+30, pointB.y-3);
+            image(this.sling3, pointA.x-30, pointA-10,15,30)
+
+            }
+            else {
+                strokeWeight(3);
+                line(pointA.x+25, pointA.y, pointB.x-10, pointB.y);
+            line(pointA.x+25, pointA.y, pointB.x+30, pointB.y-3);
+            image(this.sling3, pointA.x+25,pointA-10,15,30)
+
+            }
+    }
+
+    
+}
 }
