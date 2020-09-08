@@ -54,7 +54,8 @@ function draw(){
         textSize(35)
         fill("white")
         text("Score  " + score, width-300, 50)
-    
+    console.log(gameState);
+
     Engine.update(engine);
     //strokeWeight(4);
     box1.display();
@@ -78,6 +79,15 @@ function draw(){
     platform.display();
     //log6.display();
     slingshot.display();    
+    box1.score();
+    box2.score();
+    box3.score();
+    box4.score();
+    box5.score();
+    log1.score();
+    log3.score();
+    log4.score();
+    log5.score();
 }
 
 function mouseDragged(){
@@ -94,7 +104,10 @@ function mouseReleased(){
 
 function keyPressed(){
     if(keyCode === 32){
-       // slingshot.attach(bird.body);
+    slingshot.attach(bird.body);
+    gameState= "onSling"; 
+    bird.trajectory= [];
+    Matter.Body.setPosition(bird.body, {x:200, y:50});
     }
 }
 
